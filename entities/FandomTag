@@ -1,0 +1,24 @@
+{
+  "name": "FandomTag",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Tag text"
+    },
+    "tag_type": {
+      "type": "string",
+      "enum": [
+        "trope",
+        "genre",
+        "ao3",
+        "arc"
+      ],
+      "description": "Type of tag"
+    }
+  },
+  "required": [
+    "name",
+    "tag_type"
+  ]
+}

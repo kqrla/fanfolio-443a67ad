@@ -1,0 +1,22 @@
+{
+  "name": "ArtistAlbum",
+  "type": "object",
+  "properties": {
+    "artist_name": {
+      "type": "string",
+      "description": "Name of the artist this album belongs to"
+    },
+    "album_name": {
+      "type": "string",
+      "description": "Album title"
+    },
+    "album_cover": {
+      "type": "string",
+      "description": "Album cover image URL"
+    }
+  },
+  "required": [
+    "artist_name",
+    "album_name"
+  ]
+}

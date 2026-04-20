@@ -1,0 +1,81 @@
+{
+  "name": "FanfolioProfile",
+  "type": "object",
+  "properties": {
+    "profile_id": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "edit_key": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "enabled_sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "media_items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "ships": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "social_links": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "fandoms": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Fandoms the user is a part of (name + optional note)"
+    },
+    "fandom_spaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Social media fandom communities (booktwt, filmtwt, etc.)"
+    }
+  },
+  "required": [
+    "profile_id",
+    "edit_key"
+  ]
+}
