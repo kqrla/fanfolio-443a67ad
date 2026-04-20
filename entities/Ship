@@ -1,0 +1,17 @@
+{
+  "name": "Ship",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Ship name"
+    },
+    "note": {
+      "type": "string",
+      "description": "Optional short note about the ship"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

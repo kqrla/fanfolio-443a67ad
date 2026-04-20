@@ -1,0 +1,44 @@
+{
+  "name": "MediaItem",
+  "type": "object",
+  "properties": {
+    "media_type": {
+      "type": "string",
+      "enum": [
+        "tv_show",
+        "movie",
+        "book",
+        "artist",
+        "podcast",
+        "video_game",
+        "anime",
+        "fanfiction"
+      ],
+      "description": "Category of the media item"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the media item"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Cover image URL"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Author, creator, or additional info"
+    },
+    "link": {
+      "type": "string",
+      "description": "Optional external link (e.g. AO3 URL)"
+    },
+    "order": {
+      "type": "number",
+      "description": "Display order within section"
+    }
+  },
+  "required": [
+    "media_type",
+    "title"
+  ]
+}
