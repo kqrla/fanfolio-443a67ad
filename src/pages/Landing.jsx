@@ -93,7 +93,7 @@ export default function Landing() {
       </nav>
 
       {/* Hero */}
-      <section className="min-h-[90vh] flex items-center relative px-6 md:px-12 pt-16 pb-24">
+      <section className="min-h-[90vh] flex items-center relative px-4 sm:px-6 md:px-12 pt-16 pb-24 overflow-hidden">
         <div className="max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -108,8 +108,8 @@ export default function Landing() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="font-heading font-light tracking-tight leading-none text-foreground"
-            style={{ fontSize: "clamp(3.5rem, 9vw, 8rem)" }}
+            className="font-heading font-light tracking-tight leading-[0.95] text-foreground break-words"
+            style={{ fontSize: "clamp(2.5rem, 9vw, 8rem)" }}
           >
             build a page around<br />
             <em>everything</em> you love
@@ -268,11 +268,11 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="py-32 md:py-48 px-6 md:px-12 text-center">
+      <section className="py-32 md:py-48 px-4 sm:px-6 md:px-12 text-center overflow-hidden">
         <div className="max-w-2xl mx-auto">
           <h2
-            className="font-heading font-light tracking-tight leading-none mb-8"
-            style={{ fontSize: "clamp(3rem, 8vw, 6rem)" }}
+            className="font-heading font-light tracking-tight leading-[0.95] mb-8 break-words"
+            style={{ fontSize: "clamp(2.25rem, 8vw, 6rem)" }}
           >
             start your archive<br /><em>today.</em>
           </h2>
