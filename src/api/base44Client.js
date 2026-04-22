@@ -90,23 +90,47 @@ const entities = Object.fromEntries(
   Object.entries(TABLES).map(([name, table]) => [name, makeEntity(table)])
 );
 
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 async function uploadFile({ file }) {
+  if (!file) return { file_url: "" };
   const ext = (file?.name || "bin").split(".").pop();
   const path = `${crypto.randomUUID()}.${ext}`;
-  const { error } = await supabase.storage
-    .from("fanfolio-uploads")
-    .upload(path, file, { upsert: false, contentType: file?.type });
-  if (error) throw error;
-  const { data } = supabase.storage.from("fanfolio-uploads").getPublicUrl(path);
-  return { file_url: data.publicUrl };
+  try {
+    const { error } = await supabase.storage
+      .from("fanfolio-uploads")
+      .upload(path, file, { upsert: false, contentType: file?.type, cacheControl: "3600" });
+    if (error) throw error;
+    const { data } = supabase.storage.from("fanfolio-uploads").getPublicUrl(path);
+    if (data?.publicUrl) return { file_url: data.publicUrl };
+    throw new Error("No public URL returned");
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn("[ocverse] Storage upload failed, embedding image as data URL.", err);
+    // Fallback: embed the image directly in the profile JSON so the app still works
+    // even when storage isn't configured. Cap at ~3 MB to keep payloads sane.
+    if (file.size > 3 * 1024 * 1024) {
+      throw new Error("Image too large (max 3 MB) — please configure Supabase storage or use a smaller image.");
+    }
+    const dataUrl = await fileToDataUrl(file);
+    return { file_url: dataUrl };
+  }
 }
 
 async function sendEmail({ to, subject, body } = {}) {
-  // Wire up your own provider (Resend, EmailJS, Edge Function) here.
-  // No-op by default so the app keeps working.
-  // eslint-disable-next-line no-console
-  console.warn("[ocverse] SendEmail not configured. Skipped:", { to, subject, body });
-  return { ok: true, skipped: true };
+  // Portable, no-backend approach: open the user's own mail client.
+  // Honours the project ethos (no third-party email service required).
+  if (typeof window === "undefined") return { ok: false };
+  const url = `mailto:${encodeURIComponent(to || "")}?subject=${encodeURIComponent(subject || "")}&body=${encodeURIComponent(body || "")}`;
+  window.location.href = url;
+  return { ok: true, via: "mailto" };
 }
 
 export const db = {
