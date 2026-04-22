@@ -66,25 +66,25 @@ export default function Landing() {
     <div className="min-h-screen bg-background text-foreground">
 
       {/* Nav */}
-      <nav className="sticky top-0 z-40 bg-background border-b border-border px-6 md:px-12 py-4 flex items-center justify-between">
-        <div className="flex flex-col leading-none">
+      <nav className="sticky top-0 z-40 bg-background border-b border-border px-4 sm:px-6 md:px-12 py-3 sm:py-4 flex items-center justify-between gap-2">
+        <Link to="/" className="flex flex-col leading-none flex-shrink-0">
           <span className="font-mono text-[11px] tracking-widest uppercase text-primary">fanfolio</span>
           <span className="font-mono text-[8px] tracking-widest uppercase text-muted-foreground">by ocverse</span>
-        </div>
-        <div className="flex items-center gap-4">
+        </Link>
+        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
           <DarkModeToggle />
-          <Link to="/features" className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors">features</Link>
-          <Link to="/faq" className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors">faq</Link>
-          <Link to="/letters" className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors">letters</Link>
+          <Link to="/features" className="hidden sm:inline font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors">features</Link>
+          <Link to="/faq" className="hidden sm:inline font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors">faq</Link>
+          <Link to="/letters" className="hidden md:inline font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors">letters</Link>
           <Link
             to="/"
-            className="px-5 py-2 bg-foreground text-background font-mono text-[10px] tracking-widest uppercase hover:bg-primary transition-colors rounded-sm"
+            className="px-3 sm:px-5 py-2 bg-foreground text-background font-mono text-[10px] tracking-widest uppercase hover:bg-primary transition-colors rounded-sm whitespace-nowrap"
           >
             build yours
           </Link>
           <Link
             to="/account"
-            className="w-8 h-8 flex items-center justify-center rounded-sm border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-sm border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors flex-shrink-0"
             title="account"
           >
             <User className="w-3.5 h-3.5" />
@@ -93,7 +93,7 @@ export default function Landing() {
       </nav>
 
       {/* Hero */}
-      <section className="min-h-[90vh] flex items-center relative px-6 md:px-12 pt-16 pb-24">
+      <section className="min-h-[90vh] flex items-center relative px-4 sm:px-6 md:px-12 pt-16 pb-24 overflow-hidden">
         <div className="max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -108,8 +108,8 @@ export default function Landing() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="font-heading font-light tracking-tight leading-none text-foreground"
-            style={{ fontSize: "clamp(3.5rem, 9vw, 8rem)" }}
+            className="font-heading font-light tracking-tight leading-[0.95] text-foreground break-words"
+            style={{ fontSize: "clamp(2.5rem, 9vw, 8rem)" }}
           >
             build a page around<br />
             <em>everything</em> you love
@@ -268,11 +268,11 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="py-32 md:py-48 px-6 md:px-12 text-center">
+      <section className="py-32 md:py-48 px-4 sm:px-6 md:px-12 text-center overflow-hidden">
         <div className="max-w-2xl mx-auto">
           <h2
-            className="font-heading font-light tracking-tight leading-none mb-8"
-            style={{ fontSize: "clamp(3rem, 8vw, 6rem)" }}
+            className="font-heading font-light tracking-tight leading-[0.95] mb-8 break-words"
+            style={{ fontSize: "clamp(2.25rem, 8vw, 6rem)" }}
           >
             start your archive<br /><em>today.</em>
           </h2>

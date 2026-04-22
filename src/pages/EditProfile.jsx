@@ -166,33 +166,45 @@ export default function EditProfile() {
 
   useEffect(() => { loadProfile(); }, [id]);
 
+  const sessionKeyName = `fanfolio:editkey:${id}`;
+
+  const hydrateProfileData = (p) => {
+    setProfileData({
+      username: p.username || "",
+      bio: p.bio || "",
+      tagline: p.tagline || "",
+      avatar_url: p.avatar_url || "",
+      media_items: p.media_items || [],
+      characters: p.characters || [],
+      ships: p.ships || [],
+      tags: p.tags || [],
+      social_links: p.social_links || [],
+      fandoms: p.fandoms || [],
+      fandom_spaces: p.fandom_spaces || [],
+    });
+    setEnabledSections(p.enabled_sections || []);
+    setUnlocked(true);
+    setKeyError(false);
+  };
+
   const loadProfile = async () => {
     let results = await db.entities.FanfolioProfile.filter({ profile_id: id });
     if (results.length === 0) results = await db.entities.FanfolioProfile.filter({ slug: id });
-    if (results.length === 0) { setNotFound(true); }
-    else { setProfile(results[0]); }
+    if (results.length === 0) { setNotFound(true); setLoading(false); return; }
+    const p = results[0];
+    setProfile(p);
+    // Auto-unlock if a matching key was saved this session
+    try {
+      const saved = sessionStorage.getItem(sessionKeyName);
+      if (saved && saved === p.edit_key) hydrateProfileData(p);
+    } catch { /* sessionStorage unavailable */ }
     setLoading(false);
   };
 
   const handleUnlock = () => {
     if (keyInput.trim() === profile.edit_key) {
-      const p = profile;
-      setProfileData({
-        username: p.username || "",
-        bio: p.bio || "",
-        tagline: p.tagline || "",
-        avatar_url: p.avatar_url || "",
-        media_items: p.media_items || [],
-        characters: p.characters || [],
-        ships: p.ships || [],
-        tags: p.tags || [],
-        social_links: p.social_links || [],
-        fandoms: p.fandoms || [],
-        fandom_spaces: p.fandom_spaces || [],
-      });
-      setEnabledSections(p.enabled_sections || []);
-      setUnlocked(true);
-      setKeyError(false);
+      try { sessionStorage.setItem(sessionKeyName, profile.edit_key); } catch { /* ignore */ }
+      hydrateProfileData(profile);
     } else {
       setKeyError(true);
     }
