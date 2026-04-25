@@ -40,14 +40,14 @@ export default function SuccessScreen({ profileId, editKey, profile }) {
       });
       setEmailSent(true);
     } catch (err) {
-      setEmailError("email sending is unavailable — copy your key manually or download the .txt file.");
+      setEmailError("email sending is unavailable - copy your key manually or download the .txt file.");
     } finally {
       setEmailSending(false);
     }
   };
 
   const downloadCredentials = () => {
-    const content = `FANFOLIO PROFILE CREDENTIALS\n\nProfile URL: ${publicUrl}\nEdit URL: ${editUrl}\nEdit Key: ${editKey}\n\nKeep your edit key safe — it cannot be recovered.`;
+    const content = `FANFOLIO PROFILE CREDENTIALS\n\nProfile URL: ${publicUrl}\nEdit URL: ${editUrl}\nEdit Key: ${editKey}\n\nKeep your edit key safe - it cannot be recovered.`;
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -65,7 +65,7 @@ export default function SuccessScreen({ profileId, editKey, profile }) {
           <p className="font-mono text-[10px] tracking-widest uppercase text-primary mb-3">published</p>
           <h1 className="font-heading text-4xl font-light tracking-tight mb-2">your archive is live.</h1>
           <p className="font-body text-muted-foreground text-sm mb-10 leading-relaxed">
-            save your edit key — it cannot be recovered. without it, you won't be able to update your profile.
+            save your edit key - it cannot be recovered. without it, you won't be able to update your profile.
           </p>
 
           {/* Profile URL */}

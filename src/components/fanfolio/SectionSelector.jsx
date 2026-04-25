@@ -138,7 +138,7 @@ export default function SectionSelector({ selected, onChange, onContinue }) {
                   what are you<br />a fan of?
                 </h1>
                 <p className="font-body text-muted-foreground mt-5 text-base leading-relaxed max-w-md">
-                  add fandom-specific sections — fandoms, characters, ships, and the tropes you love.
+                  add fandom-specific sections - fandoms, characters, ships, and the tropes you love.
                 </p>
               </div>
 

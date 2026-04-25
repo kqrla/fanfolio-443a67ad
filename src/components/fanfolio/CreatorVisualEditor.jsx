@@ -253,7 +253,7 @@ export default function CreatorVisualEditor({
 
   return (
     <div className="relative">
-      {/* Sticky top bar — single line with sections inline */}
+      {/* Sticky top bar - single line with sections inline */}
       <div className="sticky top-0 z-40 bg-background border-b border-border px-6 py-3 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <button
@@ -274,7 +274,7 @@ export default function CreatorVisualEditor({
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           <DarkModeToggle />
-          {/* User/profile icon — opens profile info modal */}
+          {/* User/profile icon - opens profile info modal */}
           <button
             onClick={onProfileClick || (() => setShowProfileSettings(true))}
             title="edit profile info"
@@ -282,7 +282,7 @@ export default function CreatorVisualEditor({
           >
             <User className="w-3.5 h-3.5" />
           </button>
-          {/* Settings icon — opens url/backup or custom handler */}
+          {/* Settings icon - opens url/backup or custom handler */}
           {onSettingsClick && (
             <button
               onClick={onSettingsClick}

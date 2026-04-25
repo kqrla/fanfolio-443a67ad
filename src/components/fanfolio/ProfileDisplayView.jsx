@@ -40,7 +40,7 @@ function ReorderableSection({ sectionKey, sectionOrder, onReorder, isOwner, drag
 
   return (
     <div className="relative group/section">
-      {/* Drag handle — invisible full-width strip at top of section */}
+      {/* Drag handle - invisible full-width strip at top of section */}
       {dragHandleProps && (
         <div
           {...dragHandleProps}
@@ -309,7 +309,7 @@ export default function ProfileDisplayView({
       <footer className="py-12 md:py-20">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
-            fanfolio — a curated taste archive
+            fanfolio - a curated taste archive
           </p>
         </div>
       </footer>

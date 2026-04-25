@@ -56,12 +56,12 @@ function SettingsPanel({ profile, profileData, onClose }) {
       await db.integrations.Core.SendEmail({
         to: emailInput.trim(),
         subject: "your fanfolio edit key",
-        body: `here's your fanfolio backup.\n\nprofile: ${publicUrl}\nedit url: ${editUrl}\nedit key: ${profile.edit_key}\n\nkeep this safe — it cannot be recovered.`,
+        body: `here's your fanfolio backup.\n\nprofile: ${publicUrl}\nedit url: ${editUrl}\nedit key: ${profile.edit_key}\n\nkeep this safe - it cannot be recovered.`,
       });
       setEmailSent(true);
       setTimeout(() => setEmailSent(false), 4000);
     } catch {
-      setEmailError("email sending failed — copy your key manually.");
+      setEmailError("email sending failed - copy your key manually.");
     } finally {
       setEmailSending(false);
     }
@@ -71,7 +71,7 @@ function SettingsPanel({ profile, profileData, onClose }) {
   const editUrl = `${baseUrl}/s/${profile.profile_id}/edit`;
 
   const downloadCredentials = () => {
-    const content = `FANFOLIO PROFILE CREDENTIALS\n\nProfile URL: ${publicUrl}\nEdit URL: ${editUrl}\nEdit Key: ${profile.edit_key}\n\nKeep your edit key safe — it cannot be recovered.`;
+    const content = `FANFOLIO PROFILE CREDENTIALS\n\nProfile URL: ${publicUrl}\nEdit URL: ${editUrl}\nEdit Key: ${profile.edit_key}\n\nKeep your edit key safe - it cannot be recovered.`;
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
