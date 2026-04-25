@@ -13,7 +13,7 @@ const LETTER = `
 
 ---
 
-this page will render whatever you write here. markdown is fully supported — headings, italics, blockquotes, line breaks, everything.
+this page will render whatever you write here. markdown is fully supported - headings, italics, blockquotes, line breaks, everything.
 
 > "we are all just museums of everything we've ever loved."
 

@@ -398,7 +398,7 @@ export default function ProfileFormBuilder({ enabledSections, onSectionsChange, 
     <div className="min-h-screen bg-background py-16 px-6">
       <div className="max-w-2xl mx-auto space-y-8">
         <div>
-          <p className="font-mono text-[10px] tracking-widest uppercase text-primary mb-4">{isEditMode ? "fanfolio — edit" : isCreationMode ? "fanfolio — step 4 of 5" : "fanfolio"}</p>
+          <p className="font-mono text-[10px] tracking-widest uppercase text-primary mb-4">{isEditMode ? "fanfolio - edit" : isCreationMode ? "fanfolio - step 4 of 5" : "fanfolio"}</p>
           <h1 className="font-heading text-4xl font-light tracking-tight">{isEditMode ? "edit your archive." : "set up your profile."}</h1>
           <p className="font-body text-muted-foreground mt-3 text-sm">{isCreationMode ? "fill in your profile details. you'll populate your media on the next screen." : "add your profile info and populate each section."}</p>
         </div>
@@ -444,7 +444,7 @@ export default function ProfileFormBuilder({ enabledSections, onSectionsChange, 
           </div>
         </SectionBlock>
 
-        {/* Media sections — hidden in creation mode (user fills them on the visual editor step) */}
+        {/* Media sections - hidden in creation mode (user fills them on the visual editor step) */}
         {!isCreationMode && activeMediaTypes.map((mediaType) => {
           const sectionItems = (profileData.media_items || []).filter((i) => i.media_type === mediaType);
           return (
@@ -481,7 +481,7 @@ export default function ProfileFormBuilder({ enabledSections, onSectionsChange, 
           );
         })}
 
-        {/* Characters — hidden in creation mode */}
+        {/* Characters - hidden in creation mode */}
         {!isCreationMode && showCharacters && (
           <SectionBlock title="characters">
             <InlineListBuilder
@@ -493,13 +493,13 @@ export default function ProfileFormBuilder({ enabledSections, onSectionsChange, 
               onAdd={addCharacter}
               onRemove={removeCharacter}
               renderItem={(c) => (
-                <span>{c.name} <span className="text-muted-foreground font-mono text-[10px] ml-1">— {c.source}</span></span>
+                <span>{c.name} <span className="text-muted-foreground font-mono text-[10px] ml-1">- {c.source}</span></span>
               )}
             />
           </SectionBlock>
         )}
 
-        {/* Ships — hidden in creation mode */}
+        {/* Ships - hidden in creation mode */}
         {!isCreationMode && showShips && (
           <SectionBlock title="ships">
             <InlineListBuilder
@@ -514,13 +514,13 @@ export default function ProfileFormBuilder({ enabledSections, onSectionsChange, 
               onAdd={addShip}
               onRemove={removeShip}
               renderItem={(s) => (
-                <span>{s.name} {s.show && <span className="text-muted-foreground font-mono text-[10px] ml-1">— {s.show}</span>}</span>
+                <span>{s.name} {s.show && <span className="text-muted-foreground font-mono text-[10px] ml-1">- {s.show}</span>}</span>
               )}
             />
           </SectionBlock>
         )}
 
-        {/* Fandoms — hidden in creation mode */}
+        {/* Fandoms - hidden in creation mode */}
         {!isCreationMode && showFandoms && (
           <SectionBlock title="fandoms">
             <FandomsSection
@@ -536,14 +536,14 @@ export default function ProfileFormBuilder({ enabledSections, onSectionsChange, 
           </SectionBlock>
         )}
 
-        {/* Tags — hidden in creation mode */}
+        {/* Tags - hidden in creation mode */}
         {!isCreationMode && showTags && (
           <SectionBlock title="tropes & tags">
             <TagBuilder items={profileData.tags || []} onAdd={addTag} onRemove={removeTag} />
           </SectionBlock>
         )}
 
-        {/* Social links — hidden in creation mode */}
+        {/* Social links - hidden in creation mode */}
         {!isCreationMode && showSocialLinks && (
           <SectionBlock title="social links">
             <SocialLinksBuilder
@@ -554,7 +554,7 @@ export default function ProfileFormBuilder({ enabledSections, onSectionsChange, 
           </SectionBlock>
         )}
 
-        {/* Section toggles — shown in edit mode only, not creation mode (sections chosen earlier) */}
+        {/* Section toggles - shown in edit mode only, not creation mode (sections chosen earlier) */}
         {onSectionsChange && !isCreationMode && (
           <SectionBlock title="sections">
             <div className="grid grid-cols-2 gap-2">

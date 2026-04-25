@@ -68,8 +68,8 @@ function LinkedItemsField({ label, items, profileItems, priorityItems, onAdd, on
       className="w-full text-left px-3 py-1.5 font-body text-xs hover:bg-muted transition-colors"
     >
       <span>{s.name}</span>
-      {s.source && <span className="font-mono text-[9px] text-muted-foreground ml-1.5">— {s.source}</span>}
-      {s.show && <span className="font-mono text-[9px] text-muted-foreground ml-1.5">— {s.show}</span>}
+      {s.source && <span className="font-mono text-[9px] text-muted-foreground ml-1.5">- {s.source}</span>}
+      {s.show && <span className="font-mono text-[9px] text-muted-foreground ml-1.5">- {s.show}</span>}
     </button>
   );
 
@@ -255,7 +255,7 @@ export default function MediaDetailPage() {
       fav_fics: found.fav_fics || [],
       other: found.other || "",
     });
-    document.title = `${found.title} — ${prof.username || "fanfolio"}`;
+    document.title = `${found.title} - ${prof.username || "fanfolio"}`;
 
     // Auto-unlock if key param matches
     const params = new URLSearchParams(window.location.search);
@@ -404,7 +404,7 @@ export default function MediaDetailPage() {
               <Input
                 value={form.rating}
                 onChange={(e) => patchForm({ rating: e.target.value })}
-                placeholder="rating — e.g. ★★★★★ or 9/10"
+                placeholder="rating - e.g. ★★★★★ or 9/10"
                 className="h-7 text-xs w-52 mt-1"
               />
             ) : (
@@ -451,7 +451,7 @@ export default function MediaDetailPage() {
                               )}
                             </p>
                           ))
-                        : <p className="font-body text-xs text-muted-foreground italic">—</p>}
+                        : <p className="font-body text-xs text-muted-foreground italic">-</p>}
                     </div>
                   )}
 
@@ -479,7 +479,7 @@ export default function MediaDetailPage() {
                               )}
                             </p>
                           ))
-                        : <p className="font-body text-xs text-muted-foreground italic">—</p>}
+                        : <p className="font-body text-xs text-muted-foreground italic">-</p>}
                     </div>
                   )}
 
@@ -498,7 +498,7 @@ export default function MediaDetailPage() {
                       <p className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground mb-2">fav fics</p>
                       {form.fav_fics.length > 0
                         ? form.fav_fics.map((f) => <p key={f.id} className="font-body text-xs mb-1">{f.name}</p>)
-                        : <p className="font-body text-xs text-muted-foreground italic">—</p>}
+                        : <p className="font-body text-xs text-muted-foreground italic">-</p>}
                     </div>
                   )}
 
@@ -513,7 +513,7 @@ export default function MediaDetailPage() {
                   ) : (
                     <div>
                       <p className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground mb-2">other</p>
-                      <p className="font-body text-xs text-muted-foreground">{form.other || <span className="italic">—</span>}</p>
+                      <p className="font-body text-xs text-muted-foreground">{form.other || <span className="italic">-</span>}</p>
                     </div>
                   )}
                 </div>

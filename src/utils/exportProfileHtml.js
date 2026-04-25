@@ -46,7 +46,7 @@ function buildHtml(profile) {
   const shipSection = enabled.includes("ships") && ships.length ? `
     <section class="section">
       <h2>Favorite Ships</h2>
-      <ul class="list">${ships.map(s => `<li><strong>${s.name}</strong>${s.show ? ` <span class="dim">— ${s.show}</span>` : ""}</li>`).join("")}</ul>
+      <ul class="list">${ships.map(s => `<li><strong>${s.name}</strong>${s.show ? ` <span class="dim">- ${s.show}</span>` : ""}</li>`).join("")}</ul>
     </section>` : "";
 
   const tagSection = enabled.includes("tags") && tags.length ? `
@@ -66,7 +66,7 @@ function buildHtml(profile) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${profile.username || "Fanfolio"} — Archive</title>
+  <title>${profile.username || "Fanfolio"} - Archive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
@@ -116,7 +116,7 @@ function buildHtml(profile) {
   ${shipSection}
   ${tagSection}
   ${socialSection}
-  <footer><p>fanfolio — a curated taste archive</p></footer>
+  <footer><p>fanfolio - a curated taste archive</p></footer>
 </body>
 </html>`;
 }
@@ -125,7 +125,7 @@ export async function exportProfileAsZip(profile) {
   const zip = new JSZip();
   const html = buildHtml(profile);
   zip.file("index.html", html);
-  zip.file("README.txt", `Fanfolio Export — ${profile.username || "Archive"}\n\nOpen index.html in any browser to view your profile.\nGenerated on ${new Date().toLocaleDateString()}.`);
+  zip.file("README.txt", `Fanfolio Export - ${profile.username || "Archive"}\n\nOpen index.html in any browser to view your profile.\nGenerated on ${new Date().toLocaleDateString()}.`);
 
   const blob = await zip.generateAsync({ type: "blob" });
   const url = URL.createObjectURL(blob);

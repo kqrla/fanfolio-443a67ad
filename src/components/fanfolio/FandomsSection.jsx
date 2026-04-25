@@ -116,7 +116,7 @@ export default function FandomsSection({ fandoms = [], fandomSpaces = [], isOwne
                   <div className="flex-1">
                     <span className="font-body text-base">{fandom.name}</span>
                     {fandom.note && (
-                      <span className="font-mono text-[11px] text-muted-foreground ml-2">— {fandom.note}</span>
+                      <span className="font-mono text-[11px] text-muted-foreground ml-2">- {fandom.note}</span>
                     )}
                   </div>
                   {isOwner && (

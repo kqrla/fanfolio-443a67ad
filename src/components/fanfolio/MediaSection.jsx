@@ -72,7 +72,7 @@ export default function MediaSection({ mediaType, items, onCardClick, onAdd, onD
         {/* Cards */}
         {items.length === 0 ? (
           <p className="font-mono text-xs text-muted-foreground tracking-wider py-10">
-            no items yet — add your first.
+            no items yet - add your first.
           </p>
         ) : isOwner && onReorder ? (
           <DragDropContext onDragEnd={handleDragEnd}>

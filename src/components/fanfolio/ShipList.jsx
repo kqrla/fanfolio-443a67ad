@@ -181,7 +181,7 @@ export default function ShipList({ ships, isOwner, onAdd, onDelete }) {
               >
                 <span className="font-body text-base">{ship.name}</span>
                 {ship.show && (
-                  <span className="font-mono text-[11px] text-muted-foreground ml-2">— {ship.show}</span>
+                  <span className="font-mono text-[11px] text-muted-foreground ml-2">- {ship.show}</span>
                 )}
               </button>
               {isOwner && (

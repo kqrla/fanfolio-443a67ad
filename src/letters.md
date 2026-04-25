@@ -4,7 +4,7 @@
 
 ---
 
-this page will render whatever you write in `letters.md`. markdown is fully supported — headings, italics, blockquotes, line breaks, everything.
+this page will render whatever you write in `letters.md`. markdown is fully supported - headings, italics, blockquotes, line breaks, everything.
 
 > "we are all just museums of everything we've ever loved."
 

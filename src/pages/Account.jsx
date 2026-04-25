@@ -72,7 +72,7 @@ function AuthPanel({ onAuth }) {
       </h1>
       <p className="font-body text-muted-foreground text-sm mb-10 leading-relaxed">
         {mode === "signup"
-          ? "collect all your fanfolio archives in one place. no account ever required to publish — this is just for convenience."
+          ? "collect all your fanfolio archives in one place. no account ever required to publish - this is just for convenience."
           : "sign in to access all your claimed archives."}
       </p>
 

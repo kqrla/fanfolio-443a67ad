@@ -238,7 +238,7 @@ export default function Features() {
         </div>
 
         <div className="mt-24 pt-12 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground">fanfolio — a curated taste archive</p>
+          <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground">fanfolio - a curated taste archive</p>
           <Link to="/" className="font-mono text-[10px] tracking-widest uppercase text-primary hover:underline transition-colors">
             build my archive →
           </Link>
