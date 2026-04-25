@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { getSiteUrl } from "@/lib/site-url";
-import { Plus, X, ExternalLink, LogOut, Eye, EyeOff, Edit2, Archive, ArrowRight } from "lucide-react";
+import { Plus, X, ExternalLink, LogOut, Eye, EyeOff, Edit2, Archive, ArrowRight, Pencil, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "../components/fanfolio/DarkModeToggle";
@@ -72,7 +72,7 @@ function AuthPanel({ onAuth }) {
       </h1>
       <p className="font-body text-muted-foreground text-sm mb-10 leading-relaxed">
         {mode === "signup"
-          ? "collect all your fanfolio archives in one place. no account ever required to publish - this is just for convenience."
+          ? "collect all your fanfolio archives in one place. no account ever required to publish, this is just for convenience."
           : "sign in to access all your claimed archives."}
       </p>
 
@@ -117,12 +117,20 @@ function AuthPanel({ onAuth }) {
         </button>
       </div>
 
-      <button
-        onClick={() => { setMode(mode === "signup" ? "signin" : "signup"); setError(""); }}
-        className="mt-5 font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
-      >
-        {mode === "signup" ? "already have an account? sign in →" : "no account? create one →"}
-      </button>
+      <div className="mt-5 flex items-center justify-between gap-3 flex-wrap">
+        <button
+          onClick={() => { setMode(mode === "signup" ? "signin" : "signup"); setError(""); }}
+          className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
+        >
+          {mode === "signup" ? "already have an account? sign in →" : "no account? create one →"}
+        </button>
+        <Link
+          to="/account/demo"
+          className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
+        >
+          try the demo →
+        </Link>
+      </div>
 
       <div className="mt-12 pt-8 border-t border-border">
         <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground mb-2">just want to edit?</p>
@@ -135,7 +143,7 @@ function AuthPanel({ onAuth }) {
 }
 
 // ─── Claim form ───────────────────────────────────────────────────────────────
-function ClaimForm({ onClaim }) {
+function ClaimForm({ onClaim, demo = false }) {
   const [open, setOpen] = useState(false);
   const [profileInput, setProfileInput] = useState("");
   const [keyInput, setKeyInput] = useState("");
@@ -148,6 +156,11 @@ function ClaimForm({ onClaim }) {
     if (!id || !key) { setError("enter both a profile id (or slug) and your edit key."); return; }
     setLoading(true);
     setError("");
+    if (demo) {
+      onClaim({ id: crypto.randomUUID(), profile_id: id, slug: id, username: id, avatar_url: "", edit_key: key });
+      setProfileInput(""); setKeyInput(""); setOpen(false); setLoading(false);
+      return;
+    }
     let results = await db.entities.FanfolioProfile.filter({ profile_id: id });
     if (results.length === 0) results = await db.entities.FanfolioProfile.filter({ slug: id });
     if (results.length === 0) { setError("profile not found."); setLoading(false); return; }
@@ -207,10 +220,20 @@ function ClaimForm({ onClaim }) {
 }
 
 // ─── Archive card ─────────────────────────────────────────────────────────────
-function ArchiveCard({ archive, onRemove }) {
+function ArchiveCard({ archive, onRemove, onRename }) {
   const baseUrl = getSiteUrl();
   const publicUrl = `${baseUrl}/s/${archive.profile_id}`;
   const editUrl = `/s/${archive.profile_id}/edit?key=${archive.edit_key}`;
+
+  const [editingNick, setEditingNick] = useState(false);
+  const [nickInput, setNickInput] = useState(archive.nickname || "");
+
+  const saveNick = () => {
+    onRename(archive.id, nickInput.trim());
+    setEditingNick(false);
+  };
+
+  const displayName = archive.nickname || archive.username || "untitled archive";
 
   return (
     <motion.div
@@ -218,14 +241,43 @@ function ArchiveCard({ archive, onRemove }) {
       animate={{ opacity: 1, y: 0 }}
       className="group border border-border rounded-sm p-5 flex items-center justify-between gap-4 hover:border-primary/40 transition-colors"
     >
-      <div className="flex items-center gap-4 min-w-0">
+      <div className="flex items-center gap-4 min-w-0 flex-1">
         {archive.avatar_url
           ? <img src={archive.avatar_url} alt="" className="w-9 h-12 object-cover rounded-sm flex-shrink-0" />
           : <div className="w-9 h-12 bg-muted rounded-sm flex-shrink-0 flex items-center justify-center"><Archive className="w-3 h-3 text-muted-foreground" /></div>
         }
-        <div className="min-w-0">
-          <p className="font-heading text-lg font-light truncate">{archive.username || "untitled archive"}</p>
-          <p className="font-mono text-[9px] text-muted-foreground truncate">{archive.slug || archive.profile_id}</p>
+        <div className="min-w-0 flex-1">
+          {editingNick ? (
+            <div className="flex items-center gap-1.5">
+              <Input
+                value={nickInput}
+                onChange={(e) => setNickInput(e.target.value)}
+                onKeyDown={(e) => { if (e.key === "Enter") saveNick(); if (e.key === "Escape") setEditingNick(false); }}
+                placeholder="nickname (private)"
+                className="h-7 text-sm"
+                autoFocus
+              />
+              <button onClick={saveNick} className="text-primary hover:opacity-70" title="save"><Check className="w-3.5 h-3.5" /></button>
+              <button onClick={() => { setEditingNick(false); setNickInput(archive.nickname || ""); }} className="text-muted-foreground hover:text-foreground" title="cancel"><X className="w-3.5 h-3.5" /></button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <p className="font-heading text-lg font-light truncate">{displayName}</p>
+              <button
+                onClick={() => setEditingNick(true)}
+                className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-primary transition-opacity"
+                title="rename (private nickname)"
+              >
+                <Pencil className="w-3 h-3" />
+              </button>
+            </div>
+          )}
+          <p className="font-mono text-[9px] text-muted-foreground truncate">
+            {archive.slug || archive.profile_id}
+            {archive.nickname && archive.username && (
+              <span className="ml-1.5 opacity-60">(published as: {archive.username})</span>
+            )}
+          </p>
         </div>
       </div>
       <div className="flex items-center gap-2 flex-shrink-0">
@@ -258,24 +310,43 @@ function ArchiveCard({ archive, onRemove }) {
 }
 
 // ─── Dashboard ────────────────────────────────────────────────────────────────
-function Dashboard({ account, onLogout }) {
-  const [claimed, setClaimed] = useState(loadClaimed);
+function Dashboard({ account, onLogout, demo = false }) {
+  // In demo mode, use in-memory state with sample data
+  const demoSeed = [
+    { id: "demo-1", profile_id: "DEMO01", slug: "alex-archive", username: "alex's archive", nickname: "main fandom site", avatar_url: "", edit_key: "demo-key-1" },
+    { id: "demo-2", profile_id: "DEMO02", slug: "side-project", username: "side blog", nickname: "", avatar_url: "", edit_key: "demo-key-2" },
+  ];
+  const [claimed, setClaimed] = useState(demo ? demoSeed : loadClaimed);
+
+  const persist = (next) => {
+    setClaimed(next);
+    if (!demo) saveClaimed(next);
+  };
 
   const handleClaim = (archive) => {
     if (claimed.some((c) => c.profile_id === archive.profile_id)) return;
-    const next = [...claimed, archive];
-    saveClaimed(next);
-    setClaimed(next);
+    persist([...claimed, archive]);
   };
 
-  const handleRemove = (id) => {
-    const next = claimed.filter((c) => c.id !== id);
-    saveClaimed(next);
-    setClaimed(next);
+  const handleRemove = (id) => persist(claimed.filter((c) => c.id !== id));
+
+  const handleRename = (id, nickname) => {
+    persist(claimed.map((c) => c.id === id ? { ...c, nickname } : c));
   };
 
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl">
+      {demo && (
+        <div className="mb-8 px-4 py-3 border border-primary/30 bg-primary/5 rounded-sm flex items-center justify-between gap-4">
+          <div>
+            <p className="font-mono text-[10px] tracking-widest uppercase text-primary">demo mode</p>
+            <p className="font-body text-xs text-muted-foreground mt-1">no login required. nothing here is saved.</p>
+          </div>
+          <Link to="/account" className="font-mono text-[10px] tracking-widest uppercase text-foreground hover:text-primary transition-colors whitespace-nowrap">
+            exit demo →
+          </Link>
+        </div>
+      )}
 
       {/* Header */}
       <div className="flex items-start justify-between mb-12">
@@ -286,12 +357,14 @@ function Dashboard({ account, onLogout }) {
           </p>
           <h1 className="font-heading text-3xl md:text-4xl font-light">{account.email}</h1>
         </div>
-        <button
-          onClick={onLogout}
-          className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mt-1"
-        >
-          <LogOut className="w-3 h-3" /> sign out
-        </button>
+        {!demo && (
+          <button
+            onClick={onLogout}
+            className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mt-1"
+          >
+            <LogOut className="w-3 h-3" /> sign out
+          </button>
+        )}
       </div>
 
       {/* Archives */}
@@ -300,6 +373,7 @@ function Dashboard({ account, onLogout }) {
           <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             archives <span className="text-primary ml-1">{claimed.length > 0 ? `(${claimed.length})` : ""}</span>
           </p>
+          <p className="font-mono text-[9px] text-muted-foreground hidden sm:block">hover a card to rename</p>
         </div>
 
         {claimed.length === 0 ? (
@@ -312,13 +386,13 @@ function Dashboard({ account, onLogout }) {
           <div className="space-y-2 mb-4">
             <AnimatePresence>
               {claimed.map((archive) => (
-                <ArchiveCard key={archive.id} archive={archive} onRemove={handleRemove} />
+                <ArchiveCard key={archive.id} archive={archive} onRemove={handleRemove} onRename={handleRename} />
               ))}
             </AnimatePresence>
           </div>
         )}
 
-        <ClaimForm onClaim={handleClaim} />
+        <ClaimForm onClaim={handleClaim} demo={demo} />
       </div>
 
       {/* New archive */}
@@ -336,8 +410,8 @@ function Dashboard({ account, onLogout }) {
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
-export default function Account() {
-  const [account, setAccount] = useState(loadAccount);
+export default function Account({ demo = false }) {
+  const [account, setAccount] = useState(demo ? { email: "demo@fanfolio.local" } : loadAccount);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -358,7 +432,7 @@ export default function Account() {
       <div className="min-h-[calc(100vh-65px)] flex items-start justify-center px-6 py-20 md:py-28">
         <AnimatePresence mode="wait">
           {account
-            ? <Dashboard key="dashboard" account={account} onLogout={() => { setAccount(null); saveAccount(null); }} />
+            ? <Dashboard key="dashboard" account={account} demo={demo} onLogout={() => { setAccount(null); saveAccount(null); }} />
             : <AuthPanel key="auth" onAuth={setAccount} />
           }
         </AnimatePresence>
