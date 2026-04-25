@@ -1,6 +1,6 @@
 // Portable backend adapter exposing the same interface the app already uses
 // (db.entities, db.auth, db.integrations.Core), but backed by Supabase.
-import { supabase } from "./supabaseClient";
+import { supabase, SUPABASE_CONFIGURED } from "./supabaseClient";
 
 const TABLES = {
   FanfolioProfile: "fanfolio_profiles",
@@ -101,27 +101,31 @@ function fileToDataUrl(file) {
 
 async function uploadFile({ file }) {
   if (!file) return { file_url: "" };
-  const ext = (file?.name || "bin").split(".").pop();
-  const path = `${crypto.randomUUID()}.${ext}`;
-  try {
-    const { error } = await supabase.storage
-      .from("fanfolio-uploads")
-      .upload(path, file, { upsert: false, contentType: file?.type, cacheControl: "3600" });
-    if (error) throw error;
-    const { data } = supabase.storage.from("fanfolio-uploads").getPublicUrl(path);
-    if (data?.publicUrl) return { file_url: data.publicUrl };
-    throw new Error("No public URL returned");
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.warn("[ocverse] Storage upload failed, embedding image as data URL.", err);
-    // Fallback: embed the image directly in the profile JSON so the app still works
-    // even when storage isn't configured. Cap at ~3 MB to keep payloads sane.
-    if (file.size > 3 * 1024 * 1024) {
-      throw new Error("Image too large (max 3 MB) — please configure Supabase storage or use a smaller image.");
+
+  // When storage isn't configured, skip the network call and embed directly.
+  if (SUPABASE_CONFIGURED) {
+    const ext = (file?.name || "bin").split(".").pop();
+    const path = `${crypto.randomUUID()}.${ext}`;
+    try {
+      const { error } = await supabase.storage
+        .from("fanfolio-uploads")
+        .upload(path, file, { upsert: false, contentType: file?.type, cacheControl: "3600" });
+      if (error) throw error;
+      const { data } = supabase.storage.from("fanfolio-uploads").getPublicUrl(path);
+      if (data?.publicUrl) return { file_url: data.publicUrl };
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn("[ocverse] Storage upload failed, embedding image as data URL.", err);
     }
-    const dataUrl = await fileToDataUrl(file);
-    return { file_url: dataUrl };
   }
+
+  // Fallback: embed the image as a data URL so the app still works
+  // even when storage isn't configured. Cap at ~3 MB to keep payloads sane.
+  if (file.size > 3 * 1024 * 1024) {
+    throw new Error("Image too large (max 3 MB). Please configure Supabase storage or use a smaller image.");
+  }
+  const dataUrl = await fileToDataUrl(file);
+  return { file_url: dataUrl };
 }
 
 async function sendEmail({ to, subject, body } = {}) {
