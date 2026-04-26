@@ -8,7 +8,7 @@ import ReactMarkdown from "react-markdown";
 
 const LETTER = `
 # a letter from the creator
-_a message_
+_an overview on museums and archives_
 ---
 
 people visit museums to experience the past. to stand before artifacts, read the placards, and understand what came before them. some people think museums are dull, only rooms full of things that no longer matter. but museums are never just about the past.
