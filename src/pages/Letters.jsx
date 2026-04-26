@@ -24,7 +24,7 @@ the things we love do not disappear just because we outgrow them. maybe you no l
 
 you are the curator of this museum. you decide what stays on display. what gets carefully archived. what deserves restoration. what can be packed away without resentment. you are allowed to rearrange the rooms. you are allowed to revisit old wings. you are allowed to close doors and open new ones.
 
-i am a museum of everything i have ever loved.
+> "i am a museum of everything i have ever loved and a mosaic of everyone i have ever met"
 
 not only in metaphor, but in truth. every version of me still exists somewhere in the exhibits. every obsession, every season, every friendship, every song played too many times, every late-night fixation, every world that once felt more real than this one. i may not always show it, but i carry all of it.
 
@@ -32,13 +32,9 @@ when i walk through my own museum, i feel gratitude. for the things that shaped 
 
 the doors are open. anyone can look back through old photos, messages, lists, scraps, and echoes. but the person who once stood there has already moved forward. that is what museums are for: to honor what was, without pretending it is still now.
 
-and one day, there will be new wings. brighter rooms. bigger stories. fresh collections still waiting to be named. the old halls will remain, steady and beloved, while newer memories begin to shine beside them.
-
-the past still has a place here.
+and one day, there will be new wings. brighter rooms. bigger stories. fresh collections still waiting to be named. the old halls will remain, steady and beloved, while newer memories begin to shine beside them. the past still has a place here.
 in my heart, in my history, and on fanfolio.
 
-love,
-anne
 
 `;
 
