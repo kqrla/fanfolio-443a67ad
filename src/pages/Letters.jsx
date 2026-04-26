@@ -24,7 +24,7 @@ the things we love do not disappear just because we outgrow them. maybe you no l
 
 you are the curator of this museum. you decide what stays on display. what gets carefully archived. what deserves restoration. what can be packed away without resentment. you are allowed to rearrange the rooms. you are allowed to revisit old wings. you are allowed to close doors and open new ones.
 
-> "i am a museum of everything i have ever loved and a mosaic of everyone i have ever met"
+> "i am a museum of everything and a mosaic of everyone i have ever loved, even for a heartbeat."
 
 not only in metaphor, but in truth. every version of me still exists somewhere in the exhibits. every obsession, every season, every friendship, every song played too many times, every late-night fixation, every world that once felt more real than this one. i may not always show it, but i carry all of it.
 
