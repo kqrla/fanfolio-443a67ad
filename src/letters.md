@@ -1,6 +1,8 @@
-# a letter to you
+# a letter from the creator
 
-*paste your letter here.*
+> "we are all just museums of everything we've ever loved."
+
+_paste your letter here._
 
 ---
 
